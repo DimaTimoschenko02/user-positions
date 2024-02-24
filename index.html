@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>User Management</title>
+  <style>
+      .container {
+          display: flex;
+          flex-direction: row;
+      }
+
+      .column {
+          flex: 1;
+          margin: 0 10px;
+      }
+  </style>
+</head>
+<body>
+<h1>User Management System</h1>
+
+<div class="container">
+  <div class="column">
+    <h2>User Registration</h2>
+    <label for="name">Name:</label>
+    <input id="name" name="name" type="text"><br><br>
+
+    <label for="email">Email:</label>
+    <input id="email" name="email" type="email"><br><br>
+
+    <label for="phone">Phone:</label>
+    <input id="phone" name="phone" type="tel"><br><br>
+
+    <label for="positionId">Position ID:</label>
+    <input id="positionId" name="positionId" type="number"><br><br>
+
+    <label for="photoId">Photo ID:</label>
+    <input id="photoId" name="photoId" required type="text"><br><br>
+
+
+    <button type="submit">Register</button>
+    <hr />
+
+    <h2>File Upload</h2>
+    <form enctype="multipart/form-data" id="file-upload-form">
+      <input id="file" name="file" required type="file" />
+      <button type="submit">Upload File</button>
+    </form>
+    <div id="file-upload-response">
+    </div>
+    <hr />
+  </div>
+
+  <div class="column">
+    <h2>Get All Positions</h2>
+    <button id="get-all-positions">Get All Positions</button>
+    <div id="all-positions">
+    </div>
+    <hr />
+  </div>
+
+  <div class="column">
+    <h2>Get User by ID</h2>
+    <form id="get-user-form">
+      <label for="userId">User ID:</label>
+      <input id="userId" name="userId" required type="text" />
+      <button type="submit">Get User</button>
+    </form>
+    <div id="user-details">
+    </div>
+    <hr />
+
+    <h2>Get All Users</h2>
+    <button id="get-all-users">Get All Users</button>
+    <div id="all-users">
+    </div>
+  </div>
+
+  <div class="column">
+    <h2>Get Token for User Registration</h2>
+    <button id="get-registration-token">Get Registration Token</button>
+    <div id="registration-token">
+    </div>
+    <hr />
+  </div>
+</div>
+
+<script src="frontend.js"></script>
+</body>
+</html>
