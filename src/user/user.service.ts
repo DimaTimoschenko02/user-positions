@@ -16,15 +16,21 @@ import { first, isEmpty, isNil } from 'lodash';
 import { GetUsersResponseDto } from './dtos/get-users.response.dto';
 import { GetUserResponseDto } from './dtos/get-user.response.dto';
 import { GetUsersSingleUserDto } from './dtos/get-users-single-user.dto';
+import { CustomConfigService } from '../custom-config/custom-config.service';
 
 @Injectable()
 export class UserService {
+  private readonly apiUserUrl: string;
+
   constructor(
     private readonly userRepository: UserRepository,
     private readonly positionService: PositionService,
     private readonly fileService: FileService,
     private readonly cacheService: CacheService,
-  ) {}
+    private readonly configService: CustomConfigService,
+  ) {
+    this.apiUserUrl = configService.get<string>('API_URL') + '/' + 'user';
+  }
 
   public async getUserById(id: number): Promise<GetUserResponseDto> {
     const user = await this.userRepository.getUserById(id);
@@ -97,9 +103,12 @@ export class UserService {
     const { totalUsers, page, count } = params;
 
     return {
-      previousUrl: page > 1 ? `page=${page - 1}&count=${count}` : null,
+      previousUrl:
+        page > 1 ? `${this.apiUserUrl}?page=${page - 1}&count=${count}` : null,
       nextUrl:
-        page * count < totalUsers ? `page=${page + 1}&count=${count}` : null,
+        page * count < totalUsers
+          ? `${this.apiUserUrl}?page=${page + 1}&count=${count}`
+          : null,
     };
   }
 }

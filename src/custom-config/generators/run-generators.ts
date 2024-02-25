@@ -6,7 +6,7 @@ const runGenerators = async () => {
   const app = await NestFactory.create(GeneratorModule);
 
   // await app.get(PositionGeneratorService).generatePositions(5);
-  await app.get(UserGeneratorService).generateRandomUsers(5);
+  await app.get(UserGeneratorService).generateRandomUsers(35);
 
   await app.close();
 };

@@ -22,23 +22,26 @@
 <div class="container">
   <div class="column">
     <h2>User Registration</h2>
-    <label for="name">Name:</label>
-    <input id="name" name="name" type="text"><br><br>
+    <form id="user-registration-form">
+      <label for="name">Name:</label>
+      <input id="name" name="name" type="text"><br><br>
 
-    <label for="email">Email:</label>
-    <input id="email" name="email" type="email"><br><br>
+      <label for="email">Email:</label>
+      <input id="email" name="email" type="email"><br><br>
 
-    <label for="phone">Phone:</label>
-    <input id="phone" name="phone" type="tel"><br><br>
+      <label for="phone">Phone:</label>
+      <input id="phone" name="phone" type="tel"><br><br>
 
-    <label for="positionId">Position ID:</label>
-    <input id="positionId" name="positionId" type="number"><br><br>
+      <label for="positionId">Position ID:</label>
+      <input id="positionId" name="positionId" type="number"><br><br>
 
-    <label for="photoId">Photo ID:</label>
-    <input id="photoId" name="photoId" required type="text"><br><br>
+      <label for="photoId">Photo ID:</label>
+      <input id="photoId" name="photoId" required type="text"><br><br>
 
-
-    <button type="submit">Register</button>
+      <label for="registration-token-input">RegistrationToken</label>
+      <input id="registration-token-input" name="registration-token" required type="text"><br><br>
+      <button type="submit">Register</button>
+    </form>
     <hr />
 
     <h2>File Upload</h2>
@@ -71,8 +74,23 @@
     <hr />
 
     <h2>Get All Users</h2>
-    <button id="get-all-users">Get All Users</button>
+    <form id="get-all-users-form">
+      <label for="count">Count per page:</label>
+      <input id="count" name="count" type="number" value="6"><br><br>
+
+      <label for="page">Page:</label>
+      <input id="page" name="page" type="number"><br><br>
+
+      <label for="offset">Offset:</label>
+      <input id="offset" name="offset" type="number"><br><br>
+
+      <button type="submit">Get Users</button>
+    </form>
+    <div id="all-users-pagination">
+
+    </div>
     <div id="all-users">
+
     </div>
   </div>
 

@@ -43,15 +43,15 @@ export class UserRepository extends Repository<User> {
         'user.phone as "phone"',
         'position.name as "position"',
         'position.id as "positionId"',
-        'file.key as "file"',
+        'photo.key as "photo"',
         'user.createdAt as "registrationDate"',
       ])
-      .leftJoin('user.file', 'photo')
+      .leftJoin('user.photo', 'photo')
       .leftJoin('user.position', 'position')
       .orderBy('"registrationDate"', 'ASC');
 
-    const skip = offset ? offset : count * page || null;
-    console.log(skip);
+    const skip = offset ? offset : count * page - count || null;
+
     const [usersCount, users] = await Promise.all([
       query.getCount(),
       query.offset(skip).limit(count).getRawMany(),
