@@ -23,6 +23,7 @@ const registerUser = async (event) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'registration-token': formData.get('registration-token'),
       },
       body: JSON.stringify(userFields),
     });
@@ -93,31 +94,52 @@ const getUserById = async (event) => {
 };
 
 // Function to handle get all users button click
-const getAllUsers = async () => {
+const getAllUsers = async (event) => {
   try {
     // Make API call to get all users
-    const response = await fetch(`${apiHost}/user`);
+    event.preventDefault();
+
+    const form = event.target;
+    const formData = new FormData(form);
+
+    const count = formData.get('count');
+    const page = formData.get('page');
+    const offset = formData.get('offset');
+    console.log({ count, page, offset });
+    const query = `?${count ? `count=${count}&` : ''}${page ? `page=${page}&` : ''}${offset ? `offset=${offset}` : ''}`;
+    console.log(query);
+    const response = await fetch(`${apiHost}/user${query}`);
     const usersData = await response.json();
 
     if (response) {
       // Update HTML to display all users
       const allUsersContainer = document.getElementById('all-users');
       allUsersContainer.innerHTML = ''; // Clear previous content
-
+      const allUsersContainerPagination = document.getElementById(
+        'all-users-pagination',
+      );
+      allUsersContainerPagination.innerHTML = `<div>
+                      <p><strong>count:</strong> ${usersData.count}</p>
+                      <p><strong>totalUsers:</strong> ${usersData.totalUsers}</p>
+                      <p><strong>totalPages:</strong> ${usersData.totalPages}</p>
+                      <p><strong>page:</strong> ${usersData.page}</p>
+                      <p><strong>nextPage</strong> ${usersData.links.nextUrl ?? 'this is last page'}</p>
+                      <p><strong>prevPage</strong> ${usersData.links.previousUrl ?? 'this is first page'}</p>
+                  </div>`;
       usersData.users.forEach((user) => {
         const userHtml = `
-                    <div>
-                        <h3>User Details</h3>
-                        <p><strong>ID:</strong> ${user.id}</p>
-                        <p><strong>Name:</strong> ${user.name}</p>
-                        <p><strong>Email:</strong> ${user.email}</p>
-                        <p><strong>Position:</strong> ${user.position}</p>
-                        <p><strong>Position ID:</strong> ${user.positionId}</p>
-                        <p><strong>Registration Date:</strong> ${user.registrationDate}</p>
-                        <img src="${user.photo}" alt="User Photo">
-                    </div>
-                    <hr>
-                `;
+                  <div>
+                      <h3>User Details</h3>
+                      <p><strong>ID:</strong> ${user.id}</p>
+                      <p><strong>Name:</strong> ${user.name}</p>
+                      <p><strong>Email:</strong> ${user.email}</p>
+                      <p><strong>Position:</strong> ${user.position}</p>
+                      <p><strong>Position ID:</strong> ${user.positionId}</p>
+                      <p><strong>Registration Date:</strong> ${user.registrationDate}</p>
+                      <img src="${user.photo}" alt="User Photo">
+                  </div>
+                  <hr>
+              `;
         allUsersContainer.innerHTML += userHtml;
       });
     } else {
@@ -216,7 +238,9 @@ document
 document
   .getElementById('get-user-form')
   .addEventListener('submit', getUserById);
-document.getElementById('get-all-users').addEventListener('click', getAllUsers);
+document
+  .getElementById('get-all-users-form')
+  .addEventListener('submit', getAllUsers);
 document
   .getElementById('get-all-positions')
   .addEventListener('click', getAllPositions);

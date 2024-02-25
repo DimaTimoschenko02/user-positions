@@ -21,10 +21,9 @@ export class FileGeneratorService {
   }
 
   public async generateFile(): Promise<File> {
-    const fileName = v4();
+    const fileName = v4() + '.jpg';
 
-    const filePath =
-      this.fileService.getUserPhotoPath() + `/${fileName}` + '.jpg';
+    const filePath = this.fileService.getUserPhotoPath() + `/${fileName}`;
 
     const photo = await this.getRandomPhoto();
 
