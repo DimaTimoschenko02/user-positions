@@ -55,10 +55,10 @@
     "rxjs": "^7.8.1",
     "tinify": "^1.7.1",
     "typeorm": "^0.3.20",
-    "v4": "^0.0.1"
+    "v4": "^0.0.1",
+    "@faker-js/faker": "^8.4.1"
   },
   "devDependencies": {
-    "@faker-js/faker": "^8.4.1",
     "@nestjs/cli": "^10.0.0",
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.0.0",
