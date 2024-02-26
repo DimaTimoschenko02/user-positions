@@ -21,9 +21,6 @@ import {
 import { UserService } from './user.service';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { CreateUserResponseDto } from './dtos/create-user-response.dto';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { FileSizeEnum } from '../file/enums/file-size.enum';
-import { userPhotoFilter } from '../common/utils/user-photo-filter';
 import { FileDto } from '../file/dtos/file.dto';
 import { GetUsersQueryDto } from './dtos/get-users-query.dto';
 import { RegistrationTokenGuard } from '../auth/guards/registration-token.guard';
@@ -31,6 +28,9 @@ import { GetUsersResponseDto } from './dtos/get-users.response.dto';
 import { IdDto } from '../common/dtos/id.dto';
 import { GetUserResponseDto } from './dtos/get-user.response.dto';
 import { checkUserPhotoSize } from '../common/utils/check-user-photo-size.util';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { userPhotoFilter } from '../common/utils/user-photo-filter';
+import { FileSizeEnum } from '../file/enums/file-size.enum';
 
 @ApiTags('User')
 @Controller('user')

@@ -18,10 +18,10 @@ export class UserRepository extends Repository<User> {
         'user.phone as "phone"',
         'position.name as "position"',
         'position.id as "positionId"',
-        'file.key as "file"',
+        'photo.key as "photo"',
         'user.createdAt as "registrationDate"',
       ])
-      .leftJoin('user.file', 'photo')
+      .leftJoin('user.photo', 'photo')
       .leftJoin('user.position', 'position')
       .where('user.id = :id', { id })
       .getRawOne();
