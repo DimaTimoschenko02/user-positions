@@ -12,7 +12,7 @@ export class FileService {
     private readonly fileRepository: FileRepository,
     private readonly tinifyService: TinifyService,
   ) {
-    this.userPhotoPath = './src/public/images/user-photo';
+    this.userPhotoPath = './public/images/user-photo';
   }
 
   public async createUserPhoto(file: Express.Multer.File): Promise<File> {
