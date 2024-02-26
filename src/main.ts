@@ -18,12 +18,13 @@ async function bootstrap() {
     }),
   );
   const port = configService.get<number>('APP_PORT');
-
+  const apiUrl = configService.get<string>('APP_HOST');
   const options = new DocumentBuilder()
     .setTitle('swagger')
     .setVersion('1.0')
-    .addServer(`http://localhost:${port}`)
+    .addServer(`${apiUrl}`)
     .build();
+
   const document = SwaggerModule.createDocument(app, options);
 
   app.enableCors({ origin: '*' });
@@ -35,7 +36,3 @@ async function bootstrap() {
 }
 
 bootstrap();
-
-setTimeout(() => {
-  console.log(__dirname);
-}, 3000);
