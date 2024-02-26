@@ -2,9 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CustomConfigModule } from '../custom-config.module';
 import { ConnectionConfigService } from '../connection-config.service';
-import { UserGeneratorModule } from '../generators/user/user-generator.module';
-import { FileGeneratorModule } from '../generators/file/file-generator.module';
-import { PositionGeneratorModule } from '../generators/position/position-generator.module';
+import { PositionSeedModule } from './position/position-seed.module';
 
 @Module({
   imports: [
@@ -14,9 +12,7 @@ import { PositionGeneratorModule } from '../generators/position/position-generat
       useFactory: (configService: ConnectionConfigService) =>
         configService.getDbConnectionOption(),
     }),
-    UserGeneratorModule,
-    FileGeneratorModule,
-    PositionGeneratorModule,
+    PositionSeedModule,
   ],
 })
 export class SeedModule {}
