@@ -136,7 +136,7 @@ const getAllUsers = async (event) => {
                       <p><strong>Position:</strong> ${user.position}</p>
                       <p><strong>Position ID:</strong> ${user.positionId}</p>
                       <p><strong>Registration Date:</strong> ${user.registrationDate}</p>
-                      <img src="${user.photo}" alt="User Photo">
+                      <img src="${user.photo.replace(/^\.\/public\//, '')}" alt="User Photo">
                   </div>
                   <hr>
               `;
@@ -159,9 +159,9 @@ const getAllPositions = async () => {
 
     if (response) {
       const positionsData = await response.json();
-      // Update HTML to display all positions
+
       const allPositionsContainer = document.getElementById('all-positions');
-      allPositionsContainer.innerHTML = ''; // Clear previous content
+      allPositionsContainer.innerHTML = '';
 
       positionsData.forEach((position) => {
         const positionHtml = `
@@ -185,35 +185,34 @@ const getAllPositions = async () => {
   }
 };
 
-// Function to handle file upload form submission
-// Function to handle file upload form submission
 const handleFileUpload = async (event) => {
   event.preventDefault();
 
   const form = event.target;
   const formData = new FormData(form);
 
-  // Get the file input element
   const fileInput = document.getElementById('file');
-  // Get the selected file from the input element
+
   const file = fileInput.files[0];
-  // Append the file to the form data
-  formData.append('photo', file);
+  console.dir(file, { depth: null });
+
+  formData.append('photo', event.target.file.files[0]);
 
   try {
-    // Make API call to upload file
     const response = await fetch(`${apiHost}/user/photo`, {
       method: 'POST',
       body: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     });
 
     if (response) {
       const responseData = await response.json();
       console.log(responseData);
-      // Display response message or details
+
       document.getElementById('file-upload-response').innerText = responseData;
     } else {
-      // Handle error
       console.error('Failed to upload file');
     }
   } catch (error) {
@@ -221,17 +220,14 @@ const handleFileUpload = async (event) => {
   }
 };
 
-// Event listener for file upload form submission
 document
   .getElementById('file-upload-form')
   .addEventListener('submit', handleFileUpload);
 
-// Event listener for file upload form submission
 document
   .getElementById('file-upload-form')
   .addEventListener('submit', handleFileUpload);
 
-// Event listeners
 document
   .getElementById('user-registration-form')
   .addEventListener('submit', registerUser);

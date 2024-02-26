@@ -26,6 +26,7 @@ export class ConnectionConfigService {
       migrationsTableName: 'migrations',
       synchronize: false,
       logging: true,
+      ssl: true,
     };
   }
 
