@@ -2,7 +2,7 @@ import { Injectable, OnModuleInit } from '@nestjs/common';
 import { UserRepository } from '../../../user/repositories/user.repository';
 import { PositionService } from '../../../position/position.service';
 import { Position } from '../../../position/entities/position.entity';
-import { faker } from '@faker-js/faker';
+import * as faker from '@faker-js/faker';
 import { range, sample } from 'lodash';
 import { FileGeneratorService } from '../file/file-generator.service';
 import { User } from '../../../user/entities/user.entity';
@@ -36,9 +36,9 @@ export class UserGeneratorService implements OnModuleInit {
 
   private async createRandomUser(): Promise<User> {
     return this.userRepository.create({
-      name: faker.person.firstName(),
-      email: faker.internet.email(),
-      phone: faker.phone.number(),
+      name: faker.faker.person.firstName(),
+      email: faker.faker.internet.email(),
+      phone: faker.faker.phone.number(),
       position: sample(this.allPositions),
       photo: await this.fileGeneratorService.generateFile(),
     });
