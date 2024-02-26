@@ -37,5 +37,5 @@ async function bootstrap() {
 bootstrap();
 
 setTimeout(() => {
-  console.log(123);
-}, 5000);
+  console.log(__dirname);
+}, 3000);
