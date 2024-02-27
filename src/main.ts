@@ -36,3 +36,5 @@ async function bootstrap() {
 }
 
 bootstrap();
+
+setTimeout(() => console.log(__dirname), 3000);
