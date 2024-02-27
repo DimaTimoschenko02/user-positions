@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { FileRepository } from './repositories/file.repository';
 import { createWriteStream } from 'fs';
 import { File } from './entities/file.entity';
@@ -7,6 +7,7 @@ import { TinifyService } from '../tinify/tinify.service';
 @Injectable()
 export class FileService {
   private readonly userPhotoPath: string;
+  private readonly logger = new Logger();
 
   constructor(
     private readonly fileRepository: FileRepository,
@@ -22,6 +23,7 @@ export class FileService {
     const userPhoto = await this.tinifyService.cropAndResizeImage(file);
 
     await this.saveFile(userPhoto, path, fileName);
+    this.logger.log(`file saved path - ${path} , name - ${fileName}`);
 
     return this.saveUserPhoto({ key: fileName });
   }
