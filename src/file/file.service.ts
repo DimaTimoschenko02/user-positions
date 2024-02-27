@@ -14,13 +14,15 @@ export class FileService {
     private readonly fileRepository: FileRepository,
     private readonly tinifyService: TinifyService,
   ) {
-    this.userPhotoPath = './public/images/user-photo';
+    this.userPhotoPath = ''; //./public/images/user-photo
   }
 
   public async createUserPhoto(file: Express.Multer.File): Promise<File> {
     const fileName = `${Date.now()}-${file.originalname}`;
     const path_ = path.join(
       __dirname,
+      '..',
+      '..',
       '..',
       'public',
       'images',
