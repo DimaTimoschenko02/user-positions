@@ -19,7 +19,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "seed:run": "ts-node -r tsconfig-paths/register ./src/custom-config/seeds/run-seeds.ts",
-    "generators:run": "ts-node -r tsconfig-paths/register ./src/custom-config/generators/run-generators.ts",
+    "generators:run": "ts-node ./src/custom-config/generators/run-generators.ts",
     "docker:start:local": "docker compose --env-file=.env -f docker-compose.yaml up --build -V",
     "docker:start:prod": "docker compose --env-file=.env.production -f docker-compose.yaml up --build -V",
     "docker:down:local": "docker compose --env-file=.env -f docker-compose.yaml down",
