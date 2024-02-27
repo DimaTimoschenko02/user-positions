@@ -4,9 +4,11 @@ import { CustomConfigService } from './custom-config/custom-config.service';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import helmet from 'helmet';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import * as path from 'path';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   const configService = app.get<CustomConfigService>(CustomConfigService);
 
@@ -25,6 +27,8 @@ async function bootstrap() {
     .addServer(`${apiUrl}`)
     .build();
 
+  app.useStaticAssets(path.join(__dirname, '..', 'public'));
+
   const document = SwaggerModule.createDocument(app, options);
 
   app.enableCors({ origin: '*' });
@@ -37,4 +41,7 @@ async function bootstrap() {
 
 bootstrap();
 
-setTimeout(() => console.log(__dirname), 3000);
+setTimeout(() => {
+  console.log(__dirname);
+  console.log(path.join(__dirname, '..', 'public'));
+}, 3000);
