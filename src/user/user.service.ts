@@ -91,7 +91,7 @@ export class UserService {
   private mapUsersPhoto(users: GetUsersSingleUserDto[]) {
     return users.map(({ photo, ...user }) => ({
       ...user,
-      photo: `${this.fileService.getUserPhotoPath()}/${photo}`,
+      photo: `${__dirname}/${this.fileService.getUserPhotoPath()}/${photo}`,
     }));
   }
 
