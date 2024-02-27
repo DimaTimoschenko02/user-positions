@@ -17,7 +17,7 @@ import { GetUsersResponseDto } from './dtos/get-users.response.dto';
 import { GetUserResponseDto } from './dtos/get-user.response.dto';
 import { GetUsersSingleUserDto } from './dtos/get-users-single-user.dto';
 import { CustomConfigService } from '../custom-config/custom-config.service';
-import path from 'path';
+import * as path from 'path';
 
 @Injectable()
 export class UserService {
