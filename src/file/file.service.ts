@@ -23,7 +23,6 @@ export class FileService {
       __dirname,
       '..',
       '..',
-      '..',
       'public',
       'images',
       'user-photo',
