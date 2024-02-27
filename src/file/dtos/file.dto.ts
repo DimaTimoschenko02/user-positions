@@ -1,9 +1,10 @@
 import { IdTimestampDto } from '../../common/dtos/id-timestamp.dto';
-import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { ApiPropertyOptional } from '@nestjs/swagger';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class FileDto extends IdTimestampDto {
-  @ApiProperty({ type: String })
+  @ApiPropertyOptional({ type: String })
+  @IsOptional()
   @IsNotEmpty()
   @IsString()
   key: string;

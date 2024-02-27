@@ -14,7 +14,6 @@ export class JwtAuthStrategy extends PassportStrategy(Strategy) {
   }
 
   public validate(payload: any): any {
-    console.log({ payload });
     if (!payload) {
       throw new UnauthorizedException('Unauthorized');
     }

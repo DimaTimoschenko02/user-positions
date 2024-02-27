@@ -24,7 +24,7 @@ export class RegistrationTokenGuard implements CanActivate {
 
     const isExistsValidToken =
       await this.cacheService.getRegistrationToken(registrationToken);
-    console.log({ isExistsValidToken });
+
     if (!isExistsValidToken) throw new BadRequestException('TokenNotFound');
 
     this.tokenJwtService.decodeToken(isExistsValidToken);

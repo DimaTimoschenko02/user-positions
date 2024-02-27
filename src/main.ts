@@ -40,8 +40,3 @@ async function bootstrap() {
 }
 
 bootstrap();
-
-setTimeout(() => {
-  console.log(__dirname);
-  console.log(path.join(__dirname, '..', 'public'));
-}, 3000);

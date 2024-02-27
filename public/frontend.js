@@ -1,5 +1,6 @@
 // Function to handle user registration form submission
-const apiHost = 'https://user-positions-new.onrender.com/api/v1';
+// const apiHost = 'https://user-positions-new.onrender.com/api/v1';
+const apiHost = 'http://localhost:3000/api/v1';
 
 const registerUser = async (event) => {
   event.preventDefault();
@@ -19,18 +20,25 @@ const registerUser = async (event) => {
   };
 
   try {
-    const response = await fetch(`${apiHost}`, {
+    const response = await fetch(`${apiHost}/user`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'registration-token': formData.get('registration-token'),
       },
-      body: JSON.stringify(userFields),
+      body: JSON.stringify({ user: userFields }),
     });
+    const jsonResponse = await response.json();
+
+    if (jsonResponse.error) {
+      alert(jsonResponse.error);
+
+      return;
+    }
 
     if (response) {
-      alert('User registered successfully!');
-      form.reset(); // Clear the form after successful registration
+      alert('SUCCESS');
+      form.reset();
     } else {
       const errorData = await response.json();
       alert('Failed to register user: ' + errorData.message);
@@ -59,7 +67,6 @@ const getRegistrationToken = async (event) => {
   }
 };
 
-// Function to handle get user by ID form submission
 const getUserById = async (event) => {
   event.preventDefault();
 
@@ -189,29 +196,34 @@ const handleFileUpload = async (event) => {
   event.preventDefault();
 
   const form = event.target;
-  const formData = new FormData(form);
+  const formData = new FormData();
 
-  const fileInput = document.getElementById('file');
+  const fileInput = document.getElementById('photo');
 
   const file = fileInput.files[0];
   console.dir(file, { depth: null });
 
-  formData.append('photo', event.target.file.files[0]);
+  formData.append('photo', file);
 
   try {
     const response = await fetch(`${apiHost}/user/photo`, {
       method: 'POST',
       body: formData,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
     });
 
     if (response) {
       const responseData = await response.json();
       console.log(responseData);
 
-      document.getElementById('file-upload-response').innerText = responseData;
+      document.getElementById('file-upload-response').innerHTML = `
+                 <div>
+                        <h3>File info</h3>
+                        <p><strong>ID:</strong> ${responseData.id}</p>
+                        <p><strong>Key:</strong> ${responseData.key}</p>
+                        <p><strong>Created At:</strong> ${responseData.createdAt}</p>
+                        <p><strong>Updated At:</strong> ${responseData.updatedAt}</p>
+                    </div>
+                    <hr>`;
     } else {
       console.error('Failed to upload file');
     }
