@@ -1,6 +1,6 @@
 // Function to handle user registration form submission
-// const apiHost = 'https://user-positions-new.onrender.com/api/v1';
-const apiHost = 'http://localhost:3000/api/v1';
+const apiHost = 'https://user-positions-new.onrender.com/api/v1';
+// const apiHost = 'http://localhost:3000/api/v1';
 
 const registerUser = async (event) => {
   event.preventDefault();
