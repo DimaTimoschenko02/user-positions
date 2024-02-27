@@ -28,6 +28,7 @@ async function bootstrap() {
     .build();
 
   app.useStaticAssets(path.join(__dirname, '..', 'public'));
+  app.useStaticAssets(path.join(__dirname, '..', 'user-photo'));
 
   const document = SwaggerModule.createDocument(app, options);
 
