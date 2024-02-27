@@ -3,6 +3,7 @@ import { FileRepository } from './repositories/file.repository';
 import { createWriteStream } from 'fs';
 import { File } from './entities/file.entity';
 import { TinifyService } from '../tinify/tinify.service';
+import path from 'path';
 
 @Injectable()
 export class FileService {
@@ -18,11 +19,18 @@ export class FileService {
 
   public async createUserPhoto(file: Express.Multer.File): Promise<File> {
     const fileName = `${Date.now()}-${file.originalname}`;
-    const path = `${this.userPhotoPath}/${fileName}`;
+    const path_ = path.join(
+      __dirname,
+      '..',
+      'public',
+      'images',
+      'user-photo',
+      fileName,
+    );
 
     const userPhoto = await this.tinifyService.cropAndResizeImage(file);
 
-    await this.saveFile(userPhoto, path, fileName);
+    await this.saveFile(userPhoto, path_, fileName);
     this.logger.log(`file saved path - ${path} , name - ${fileName}`);
 
     return this.saveUserPhoto({ key: fileName });

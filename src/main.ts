@@ -28,8 +28,10 @@ async function bootstrap() {
     .build();
 
   app.useStaticAssets(path.join(__dirname, '..', 'public'));
-  app.useStaticAssets(path.join(__dirname, '..', 'public/images'));
-  app.useStaticAssets(path.join(__dirname, '..', 'public/images/user-photo'));
+  app.useStaticAssets(path.join(__dirname, '..', 'public', 'images'));
+  app.useStaticAssets(
+    path.join(__dirname, '..', 'public', 'images', 'user-photo'),
+  );
 
   const document = SwaggerModule.createDocument(app, options);
 
