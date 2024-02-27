@@ -3,7 +3,7 @@ import { FileRepository } from './repositories/file.repository';
 import { createWriteStream } from 'fs';
 import { File } from './entities/file.entity';
 import { TinifyService } from '../tinify/tinify.service';
-import path from 'path';
+import * as path from 'path';
 
 @Injectable()
 export class FileService {
