@@ -30,13 +30,13 @@ async function bootstrap() {
   app.useStaticAssets(path.join('public', 'images', 'user-photo'));
 
   app.useStaticAssets(path.join(__dirname, '..', 'public'));
-  app.useStaticAssets(path.join(__dirname, '..', 'public', 'images'));
-  app.useStaticAssets(
-    path.join(__dirname, '..', 'public', 'images', 'user-photo'),
-  );
-  app.useStaticAssets(
-    path.join(__dirname, '..', '..', 'public', 'images', 'user-photo'),
-  );
+  // app.useStaticAssets(path.join(__dirname, '..', 'public', 'images'));
+  // app.useStaticAssets(
+  //   path.join(__dirname, '..', 'public', 'images', 'user-photo'),
+  // );
+  // app.useStaticAssets(
+  //   path.join(__dirname, '..', '..', 'public', 'images', 'user-photo'),
+  // );
 
   const document = SwaggerModule.createDocument(app, options);
 
@@ -45,18 +45,7 @@ async function bootstrap() {
 
   SwaggerModule.setup('api/swagger', app, document);
 
-  await app.listen(port, () =>
-    console.log(
-      `App started on port: ${port} path ${path.join(
-        __dirname,
-        '..',
-        '..',
-        'public',
-        'images',
-        'user-photo',
-      )}`,
-    ),
-  );
+  await app.listen(port, () => console.log(`App started on port: ${port} `));
 }
 
 bootstrap();
