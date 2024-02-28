@@ -17,7 +17,6 @@ import { GetUsersResponseDto } from './dtos/get-users.response.dto';
 import { GetUserResponseDto } from './dtos/get-user.response.dto';
 import { GetUsersSingleUserDto } from './dtos/get-users-single-user.dto';
 import { CustomConfigService } from '../custom-config/custom-config.service';
-import * as path from 'path';
 
 @Injectable()
 export class UserService {
@@ -92,15 +91,7 @@ export class UserService {
   private mapUsersPhoto(users: GetUsersSingleUserDto[]) {
     return users.map(({ photo, ...user }) => ({
       ...user,
-      photo: path.join(
-        __dirname,
-        '..',
-        '..',
-        'public',
-        'images',
-        'user-photo',
-        photo,
-      ),
+      photo: this.fileService.getUserPhotoPath() + '/' + photo,
     }));
   }
 
