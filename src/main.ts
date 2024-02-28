@@ -27,6 +27,8 @@ async function bootstrap() {
     .addServer(`${apiUrl}`)
     .build();
 
+  app.useStaticAssets(path.join('public', 'images', 'user-photo'));
+
   app.useStaticAssets(path.join(__dirname, '..', 'public'));
   app.useStaticAssets(path.join(__dirname, '..', 'public', 'images'));
   app.useStaticAssets(
